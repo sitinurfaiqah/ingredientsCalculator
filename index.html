@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>RecipesCalculator</title>
+        <link rel="stylesheet" href="style.css"> <!--to link to the css file-->
+        <script type="text/javascript">
+            //function for pop up message of instruction
+            function instruction()
+            {
+               alert("1) Select the recipe you want to calculate. \n2) Click on the recipes name to see the full recipes. \n3) Put the quantity you want to make.")
+            }
+        </script>
+    </head>
+    <body>
+        <div>
+            <center>
+                <h1>BAKERY RECIPES CALCULATOR</h1>
+                <hr>
+                <p>Welcome to this Bakery Recipe Calculator page!! <br> 
+                    This page is use to calculate the ingredient of the recipe you choose based on the quantity you want to make.</p>
+                <button onclick="instruction()">Instruction</button> <!--call a instruction function-->
+                <br>
+                <hr>
+                <table>
+                    <tr>
+                        <!--an image in a table with class image-hover-->
+                        <td class="image-container">
+                            <img src="cookies1.jpg" alt="cookie.img" class="image-hover first-image">
+                            <img src="cookies.jpg" alt="cookie.img" class="image-hover second-image">
+                        </td>
+                        <td class="image-container">
+                            <img src="brownies1.jpg" alt="brownie.img" class="image-hover first-image">
+                            <img src="brownies.jpg" alt="brownie.img" class="image-hover second-image">
+                        </td>
+                        <td class="image-container">
+                            <img src="muffin1.jpg" alt="muffins.img" class="image-hover first-image">
+                            <img src="muffin.jpg" alt="muffins.img" class="image-hover second-image">
+                        </td>
+                    </tr>
+                    <tr>
+                        <!--a link for each page of the recipe-->
+                        <td>
+                            <a href="cookies.html">
+                                <li style="margin: 12px; font-size: 17px;"><b>Chewy Chocolate Chip Cookies</b></li>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="brownie.html">
+                                <li style="margin: 12px; font-size: 17px;"><b>Chewy Brownies</b></li>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="muffin.html">
+                                <li style="margin: 12px; font-size: 17px;"><b>Double Chocolate Muffins</b></li>
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+                <hr>
+            </center>
+        </div>
+    </body>
+</html>

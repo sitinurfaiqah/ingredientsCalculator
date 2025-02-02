@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Cookies</title>
+        <link rel="stylesheet" href="style.css"> <!--to link to the css file-->
+        <script type="text/javascript">
+
+            //create function to count eggs with suggestion how many eggs to use
+            function scaleEggs(scaledWeight) 
+            {
+                const largeEggWeight = 57; //weight of one large egg in grams
+                const smallEggWeight = 40; //approximate weight of one small egg in grams
+
+                if (scaledWeight < smallEggWeight) {
+                    return "Use 1 small egg (adjust as needed)";
+                } else if (scaledWeight <= largeEggWeight) {
+                    return "Use 1 large egg";
+                } else {
+                    //calculate the number of large eggs needed
+                    const eggs = Math.ceil(scaledWeight / largeEggWeight);
+                    return `Use ${eggs} large egg(s)`;
+                }
+            }
+
+            //create function to count how many teaspoons to use
+            function scaleTeaspoons(weightInGrams) 
+            {
+                const gramsPerTeaspoon = 5.7; //conversion factor
+                const teaspoons = weightInGrams / gramsPerTeaspoon;
+
+                //convert teaspoons to a fraction
+                const whole = Math.floor(teaspoons);
+                const remainder = teaspoons - whole;
+
+                //to see percentage of teaspoon use from the real weight of grams per teaspoon
+                //then make it into division version, how much per total 
+                let fraction = "";
+                if (remainder >= 0.75) fraction = "3/4";
+                else if (remainder >= 0.5) fraction = "1/2";
+                else if (remainder >= 0.25) fraction = "1/4";
+
+                //format result
+                if (whole === 0 && fraction) return `${fraction} teaspoon`;
+                if (fraction) return `${whole} ${fraction} teaspoons`;
+                return `${whole} teaspoons`;
+            }
+
+            //create function to count all the ingredients
+            function calculation()
+            {
+                let Gsugar, Bsugar, butter, flour, choco, Dchoco, salt, Vextract, Bsoda, egg;
+
+                //check if the quantity is null or zero
+                const qnty = parseInt(document.getElementById('qnty').value);
+                if (isNaN(qnty) || qnty <= 0) 
+                {
+                    alert("Please enter quantity correctly.")
+                    return;
+                }
+
+                //count a scale from full quantity of ingredients
+                let scale = qnty/12;
+
+                Gsugar = 165*scale;
+                Bsugar = 165*scale;
+                butter = 115*scale;
+                flour = 155*scale;
+                choco = 110*scale;
+                Dchoco = 110*scale;
+                salt = scaleTeaspoons(5.7*scale); //call the scaleTeaspoons function
+                Vextract = scaleTeaspoons(5.7*scale);
+                Bsoda = scaleTeaspoons(2.85*scale);
+                egg = scaleEggs(57 * scale); //call the scaleEggs function
+
+                //create a output for each id and make it in bold and fixed it to zero decimal point
+                document.getElementById('GsugarResult').innerHTML = `Granulated Sugar` + "<b>" + `(${Gsugar.toFixed(0)}g)` + "<b>";
+                document.getElementById('BsugarResult').innerHTML = `Brown Sugar` + "<b>" + `(${Bsugar.toFixed(0)}g)` + "<b>";
+                document.getElementById('saltResult').innerHTML = `Salt` + "<b>" + `(${salt})` + "<b>";
+                document.getElementById('butterResult').innerHTML = `Unsalted Butter` + "<b>" + `(${butter.toFixed(0)}g)` + "<b>";
+                document.getElementById('eggResult').innerHTML = "<b>" + `${egg}` + "<b>";
+                document.getElementById('VextractResult').innerHTML = `Vanilla Extract` + "<b>" + `(${Vextract})` + "<b>";
+                document.getElementById('flourResult').innerHTML = `All-Purpose Flour` + "<b>" + `(${flour.toFixed(0)}g)` + "<b>";
+                document.getElementById('BsodaResult').innerHTML = `Baking Soda` + "<b>" + `(${Bsoda})` + "<b>";
+                document.getElementById('chocoResult').innerHTML = `Chocolate Chunks` + "<b>" + `(${choco.toFixed(0)}g)` + "<b>";
+                document.getElementById('DchocoResult').innerHTML = `Dark Chocolate Chunks` + "<b>" + `(${Dchoco.toFixed(0)}g)` + "<b>";
+
+            }
+        </script>
+    </head>
+    <body>
+        <div>
+            <center>
+                <h1>Chewy Chocolate Chip Cookies</h1>
+                <hr>
+                <!--a navigation button for each page include the homepage-->
+                <button><a href="brownie.html">Brownies Page</a></button>
+                <button><a href="muffin.html">Muffins Page</a></button>
+                <button><a href="index.html">Home Page</a></button>
+                <hr>
+                <!--create a table to put image and ingredients-->
+                <table border="1" style="border-collapse: collapse; width: 80%;">
+                    <tr style="background-color: rgb(228, 173, 173);">
+                        <th>Quantity:</th>
+                        <th>Ingredients:</th>
+                    </tr>
+                    <tr>
+                        <!--image with a class of image-hover-->
+                        <td class="image-container">
+                            <img src="cookies1.jpg" alt="cookie.img" class="image-hover first-image">
+                            <img src="cookies.jpg" alt="cookie.img" class="image-hover second-image">
+                        </td>
+                        <!--ingredients with id for each paragraph-->
+                        <td rowspan="2">
+                            <p id="GsugarResult">Granulated Sugar(165g)</p>
+                            <p id="BsugarResult">Brown Sugar(165g)</p>
+                            <p id="saltResult">Salt(1 teaspoons)</p>
+                            <p id="butterResult">Unsalted Butter(115g)</p>
+                            <p id="eggResult">Use 1 large egg</p>
+                            <p id="VextractResult">Vanilla Extract(1 teaspoons)</p>
+                            <p id="flourResult">All-Purpose Flour(155g)</p>
+                            <p id="BsodaResult">Baking Soda(1/2 teaspoons)</p>
+                            <p id="chocoResult">Chocolate Chunks(110g)</p>
+                            <p id="DchocoResult">Dark Chocolate Chunks(110g)</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <!--take user input for quantity-->
+                            For <input type="number" id="qnty" placeholder="12"> cookies
+                            <br>
+                            <button onclick="calculation()">Calculate</button> <!--call the calculation function-->
+                        </td>
+                    </tr>
+                </table>
+                <hr>
+                <h1>INSTRUCTIONS:</h1>
+                <hr>
+                <!--use numbering to list the instructions-->
+                <ol style="text-align: justify;">
+                    <li><p>In a large bowl, whisk together the sugars, salt, and butter until a paste forms with no lumps.</p></li>
+                    <li><p>Whisk in the egg and vanilla, beating until light ribbons fall off the whisk and remain for a short while before falling back into the mixture.</p></li>
+                    <li><p>Sift in the flour and baking soda, then fold the mixture with a spatula (Be careful not to overmix, which would cause the gluten in the flour to toughen resulting in cakier cookies).</p></li>
+                    <li><p>Fold in the chocolate chunks, then chill the dough for at least 30 minutes. For a more intense toffee-like flavor and deeper color, chill the dough overnight. The longer the dough rests, the more complex its flavor will be.</p></li>
+                    <li><p>Preheat oven to 350°F (180°C). Line a baking sheet with parchment paper.</p></li>
+                    <li><p>Scoop the dough with an ice-cream scoop onto a parchment paper-lined baking sheet, leaving at least 4 inches (10 cm) of space between cookies and 2 inches (5 cm) of space from the edges of the pan so that the cookies can spread evenly.</p></li>
+                    <li><p>Bake for 12-15 minutes, until the edges have started to barely brown.</p></li>
+                    <li><p>Cool completely before serving.</p></li>
+                    <li><p>Enjoy!</p></li>
+                </ol>
+                <hr>
+            </center>
+        </div>
+    </body>
+</html>

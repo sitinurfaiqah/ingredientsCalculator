@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Brownies</title>
+        <link rel="stylesheet" href="style.css"> <!--to link to the css file-->
+        <script type="text/javascript">
+
+            //create function to count eggs with suggestion how many eggs to use
+            function scaleEggs(scaledWeight) 
+            {
+                const largeEggWeight = 57; //weight of one large egg in grams
+                const smallEggWeight = 40; //approximate weight of one small egg in grams
+
+                if (scaledWeight < smallEggWeight) {
+                    return "Use 1 small egg (adjust as needed)";
+                } else if (scaledWeight <= largeEggWeight) {
+                    return "Use 1 large egg";
+                } else {
+                    //calculate the number of large eggs needed
+                    const eggs = Math.ceil(scaledWeight / largeEggWeight);
+                    return `Use ${eggs} large egg(s)`;
+                }
+            }
+
+            //create function to count how many teaspoons to use
+            function scaleTeaspoons(weightInGrams) 
+            {
+                const gramsPerTeaspoon = 5.7; //conversion factor
+                const teaspoons = weightInGrams / gramsPerTeaspoon;
+
+                //convert teaspoons to a fraction
+                const whole = Math.floor(teaspoons);
+                const remainder = teaspoons - whole;
+
+                //to see percentage of teaspoon use from the real weight of grams per teaspoon
+                //then make it into division version, how much per total 
+                let fraction = "";
+                if (remainder >= 0.75) fraction = "3/4";
+                else if (remainder >= 0.5) fraction = "1/2";
+                else if (remainder >= 0.25) fraction = "1/4";
+
+                //format result
+                if (whole === 0 && fraction) return `${fraction} teaspoon`;
+                if (fraction) return `${whole} ${fraction} teaspoons`;
+                return `${whole} teaspoons`;
+            }
+
+            //create function to count all the ingredients
+            function calculation()
+            {
+                let numyolk = 0;
+                let butter, Gsugar, egg, yolk, Vextract, Voil, Cocoa, flour, Cornstarch, salt, choco;
+
+                //check if the quantity is null or zero
+                const qnty = parseInt(document.getElementById('qnty').value);
+                if (isNaN(qnty) || qnty <= 0) 
+                {
+                    alert("Please enter quantity correctly.")
+                    return;
+                }
+
+                //count a scale from full quantity of ingredients
+                let scale = qnty/16;
+
+                butter = 71*scale;
+                Gsugar = 249*scale;
+                egg = scaleEggs(114 * scale); //call the scaleEggs function
+                //to count how many yolk egg to use based on quantity
+                yolk = (38*scale).toFixed(2); //1 egg yolk is 19g, since 16 brownie is 2 egg yolk
+                for (i=0; yolk>=i&&i<=yolk; i=i+19) //make sure it will be only in between the scale
+                {
+                    numyolk++; //keep add numyolk if the i didnt exceed the yolk which is the scale
+
+                    if(yolk<38) //if the scale is smaller than the real quantity then numyolk is zero
+                    {
+                        numyolk = 0;
+                    }
+                }
+                Vextract = scaleTeaspoons(5.7*scale); //call the scaleTeaspoons function
+                Voil = 64*scale;
+                Cocoa = 75*scale;
+                flour = 63*scale;
+                Cornstarch = scaleTeaspoons(5.7*scale);
+                salt = scaleTeaspoons(1.9*scale);
+                choco = 128*scale;
+
+                //create a output for each id and make it in bold and fixed it to zero decimal point
+                document.getElementById('butterResult').innerHTML = `Unsalted Butter` + "<b>" + `(${butter.toFixed(0)}g)` + "<b>";
+                document.getElementById('GsugarResult').innerHTML = `Granulated Sugar` + "<b>" + `(${Gsugar.toFixed(0)}g)` + "<b>";
+                document.getElementById('eggResult').innerHTML = "<b>" + `${egg} + ${numyolk}` + "<b>\t" + `egg yolk`;
+                document.getElementById('VextractResult').innerHTML = `Vanilla Extract` + "<b>" + `(${Vextract})` + "<b>";
+                document.getElementById('VoilResult').innerHTML = `Vegetable Oil` + "<b>" + `(${Voil}g)` + "<b>";
+                document.getElementById('cocoaResult').innerHTML = `Cocoa Powder` + "<b>" + `(${Cocoa.toFixed(0)}g)` + "<b>";
+                document.getElementById('flourResult').innerHTML = `All-Purpose Flour` + "<b>" + `(${flour.toFixed(0)}g)` + "<b>";
+                document.getElementById('CornstarchResult').innerHTML = `Cornstarch` + "<b>" + `(${Cornstarch})` + "<b>";
+                document.getElementById('saltResult').innerHTML = `Salt` + "<b>" + `(${salt})` + "<b>";
+                document.getElementById('chocoResult').innerHTML = `Semisweet Chocolate Chips` + "<b>" + `(${choco.toFixed(0)}g)` + "<b>";
+            
+            }
+        </script>
+    </head>
+    <body>
+        <div>
+            <center>
+                <h1>Chewy Brownies</h1>
+                <hr>
+                <!--a navigation button for each page include the homepage-->
+                <button><a href="cookies.html">Cookies Page</a></button>
+                <button><a href="muffin.html">Muffins Page</a></button>
+                <button><a href="index.html">Home Page</a></button>
+                <hr>
+                <!--create a table to put image and ingredients-->
+                <table border="1" style="border-collapse: collapse; width: 80%;">
+                    <tr style="background-color: rgb(228, 173, 173);">
+                        <th>Quantity:</th>
+                        <th>Ingredients:</th>
+                    </tr>
+                    <tr>
+                        <!--image with a class of image-hover-->
+                        <td class="image-container">
+                            <img src="brownies1.jpg" alt="brownie.img" class="image-hover first-image">
+                            <img src="brownies.jpg" alt="brownie.img" class="image-hover second-image">
+                        </td>
+                        <!--ingredients with id for each paragraph-->
+                        <td rowspan="2">
+                            <p id="butterResult">Unsalted Butter(71g)</p>
+                            <p id="GsugarResult">Granulated Sugar(249g)</p>
+                            <p id="eggResult">Use 2 egg(s) + 2 egg yolk</p>
+                            <p id="VextractResult">Vanilla Extract(1 teaspoons)</p>
+                            <p id="VoilResult">Vegetable Oil(64g)</p>
+                            <p id="cocoaResult">Cocoa Powder(75g)</p>
+                            <p id="flourResult">All-Purpose Flour(63g)</p>
+                            <p id="CornstarchResult">Cornstarch(1 tablespoons)</p>
+                            <p id="saltResult">Salt(1/4 tablespoons)</p>
+                            <p id="chocoResult">Semisweet Chocolate Chips(128g)</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <!--take user input for quantity-->
+                            For <input type="number" id="qnty" placeholder="16"> pcs small brownies
+                            <br>
+                            <button onclick="calculation()">Calculate</button> <!--call the calculation function-->
+                        </td>
+                    </tr>
+                </table>
+                <hr>
+                <h1>INSTRUCTIONS:</h1>
+                <hr>
+                <!--use numbering to list the instructions-->
+                <ol style="text-align: justify;">
+                    <li><p>Preheat the oven to 325°F. Line an 8 by 8-inch light-colored metal pan with foil or parchment paper and spray with nonstick cooking spray.</p></li>
+                    <li><p>In a microwave-safe bowl, add the butter and sugar. Microwave for about 1 minute, or until the butter is melted. Whisk in the eggs, egg yolk, and vanilla. Stir in the oil and cocoa powder.</p></li>
+                    <li><p>With a rubber spatula, stir in the flour, cornstarch, and salt until combined. Stir in the chocolate chips.</p></li>
+                    <li><p>Spread the brownie batter evenly into the prepared pan. Place in the oven and bake for 30 minutes, or until the brownies are set and a cake tester inserted into the center has moist crumbs attached. Do not overcook. Let cool completely to solidify before cutting and serving.</p></li>
+                    <li><p>Brownies can be stored in an airtight container at room temperature for up to 3 days. Brownies will be gooey when served warm, chewy when served at room temperature, and fudgy when served chilled.</p></li>
+                </ol>
+                <hr>
+                </table>
+            </center>
+        </div>
+    </body>
+</html>

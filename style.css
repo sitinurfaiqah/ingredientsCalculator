@@ -1,0 +1,110 @@
+body 
+{
+    background-image: url(background.png); /* set background image */
+    background-repeat: repeat; /* make the background image repeated */
+    background-size: center; /* set the background image as center */
+}
+
+p
+{
+    font-family: monospace;
+    font-size: 20px;
+    padding: 5px; /* set a padding for each of the paragraph */
+}
+
+button
+{
+    font-family: monospace;
+    width: 120px;
+    margin: 10px; /* set margin for each button */
+    border-width: 6px;
+    border-color: rgb(228, 173, 173);;
+    background-color: rgb(228, 173, 173);
+}
+
+hr
+{
+    height: 3px;
+    background-color: rgb(228, 173, 173);
+}
+
+h1
+{
+    font-family: monospace;
+    font-size: 40px;
+    color: rgb(228, 173, 173);
+    text-shadow: 6px 3px rgb(51, 25, 15); /* set a shadow for the text h1 */
+    border: rgb(51, 25, 15); /* set border colour for text h1 */
+    border-width: 5px; /* set border width */
+    border-style: double; /* set border style */
+}
+
+a
+{
+    text-decoration: none; /* make the link doesnt have the underline */
+    color: black; /* change the colour for the link */
+}
+
+td
+{
+    font-size: 15px;
+}
+
+table, th
+{
+    border: rgb(51, 25, 15);
+    font-family: monospace;
+    font-size: 25px;
+    text-align: center; /* set all the text align in center */ 
+}
+
+.image-container 
+{
+    position: relative;
+    width: 300px; /* set a fixed width for the container */
+    height: 300px; /* set a fixed height for the container */
+    border: 5px solid rgba(126, 63, 17, 0.441); /* add a border */
+    border-style: inset;
+    border-radius: 50px; /* add rounded corners */
+    overflow: hidden; /* ensure images stay within the border */
+}
+
+.image-hover 
+{
+    position: absolute; /* set the image position */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.3s ease-in-out; /* set a fixed time for transations */
+    object-fit: cover; /* ensures the image scales proportionally */
+}
+
+.first-image 
+{
+    opacity: 1; /* the first image is fully visible initially */
+    z-index: 1; /* place the first image on top */
+}
+
+.second-image 
+{
+    opacity: 0; /* the second image is hidden initially */
+    z-index: 2; /* place the second image below */
+}
+
+.image-container:hover .first-image 
+{
+    opacity: 0; /* hide the first image on hover */
+}
+
+.image-container:hover .second-image 
+{
+    opacity: 1; /* show the second image on hover */
+}
+
+input[type=number]
+{
+    font-family: monospace;
+    width: 10%;
+    padding: 12px;
+}

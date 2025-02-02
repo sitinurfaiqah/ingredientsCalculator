@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Muffins</title>
+        <link rel="stylesheet" href="style.css"> <!--to link to the css file-->
+        <script type="text/javascript">
+
+            //create function to count eggs with suggestion how many eggs to use
+            function scaleEggs(scaledWeight) 
+            {
+                const largeEggWeight = 57; //weight of one large egg in grams
+                const smallEggWeight = 40; //approximate weight of one small egg in grams
+
+                if (scaledWeight < smallEggWeight) {
+                    return "Use 1 small egg (adjust as needed)";
+                } else if (scaledWeight <= largeEggWeight) {
+                    return "Use 1 large egg";
+                } else {
+                    //calculate the number of large eggs needed
+                    const eggs = Math.ceil(scaledWeight / largeEggWeight);
+                    return `Use ${eggs} large egg(s)`;
+                }
+            }
+
+            //create function to count how many teaspoons to use
+            function scaleTeaspoons(weightInGrams) 
+            {
+                const gramsPerTeaspoon = 5.7; //conversion factor
+                const teaspoons = weightInGrams / gramsPerTeaspoon;
+
+                //convert teaspoons to a fraction
+                const whole = Math.floor(teaspoons);
+                const remainder = teaspoons - whole;
+
+                //to see percentage of teaspoon use from the real weight of grams per teaspoon
+                //then make it into division version, how much per total 
+                let fraction = "";
+                if (remainder >= 0.75) fraction = "3/4";
+                else if (remainder >= 0.5) fraction = "1/2";
+                else if (remainder >= 0.25) fraction = "1/4";
+
+                //format result
+                if (whole === 0 && fraction) return `${fraction} teaspoon`;
+                if (fraction) return `${whole} ${fraction} teaspoons`;
+                return `${whole} teaspoons`;
+            }
+
+            //create function to count all the ingredients
+            function calculation()
+            {
+                let flour, Gsugar, Cocoa, Bsoda, salt, choco, egg, yogurt, Voil, milk, Vextract;
+
+                //check if the quantity is null or zero
+                const qnty = parseInt(document.getElementById('qnty').value);
+                if (isNaN(qnty) || qnty <= 0) 
+                {
+                    alert("Please enter quantity correctly.")
+                    return;
+                }
+
+                //count a scale from full quantity of ingredients
+                let scale = qnty/12;
+
+                flour = 250*scale;
+                Gsugar = 200*scale;
+                Cocoa = 41*scale;
+                Bsoda = scaleTeaspoons(5.7*scale); //call the scaleTeaspoons function
+                salt = scaleTeaspoons(2.85*scale);
+                choco = 315*scale;
+                egg = scaleEggs(114 * scale); //call the scaleEggs function
+                yogurt = 185*scale;
+                Voil = 120*scale;
+                milk = 120*scale;
+                Vextract = scaleTeaspoons(8.6*scale);
+
+                //create a output for each id and make it in bold and fixed it to zero decimal point
+                document.getElementById('flourResult').innerHTML = `All-Purpose Flour` + "<b>" + `(${flour.toFixed(0)}g)` + "<b>";
+                document.getElementById('GsugarResult').innerHTML = `Granulated Sugar` + "<b>" + `(${Gsugar.toFixed(0)}g)` + "<b>";
+                document.getElementById('cocoaResult').innerHTML = `Cocoa Powder` + "<b>" + `(${Cocoa.toFixed(0)}g)` + "<b>";
+                document.getElementById('BsodaResult').innerHTML = `Baking Soda` + "<b>" + `(${Bsoda})` + "<b>";
+                document.getElementById('saltResult').innerHTML = `Salt` + "<b>" + `(${salt})` + "<b>";
+                document.getElementById('chocoResult').innerHTML = `Chocolate Chips` + "<b>" + `(${choco.toFixed(0)}g)` + "<b>";
+                document.getElementById('eggResult').innerHTML = "<b>" + `${egg}` + "<b>";
+                document.getElementById('yogurtResult').innerHTML = `Plain Yogurt` + "<b>" + `(${yogurt.toFixed(0)}g)` + "<b>";
+                document.getElementById('VoilResult').innerHTML = `Vegetable Oil` + "<b>" + `(${Voil.toFixed(0)}ml)` + "<b>";
+                document.getElementById('milkResult').innerHTML = `Whole Milk` + "<b>" + `(${milk.toFixed(0)}ml)` + "<b>";
+                document.getElementById('VextractResult').innerHTML = `Vanilla Extract` + "<b>" + `(${Vextract})` + "<b>";
+
+            }
+        </script>
+    </head>
+    <body>
+        <div>
+            <center>
+                <h1>Double Chocolate Muffins</h1>
+                <hr>
+                <!--a navigation button for each page include the homepage-->
+                <button><a href="cookies.html">Cookies Page</a></button>
+                <button><a href="brownie.html">Brownies Page</a></button>
+                <button><a href="index.html">Home Page</a></button>
+                <hr>
+                <!--create a table to put image and ingredients-->
+                <table border="1" style="border-collapse: collapse; width: 80%;">
+                    <tr style="background-color: rgb(228, 173, 173);">
+                        <th>Quantity:</th>
+                        <th>Ingredients:</th>
+                    </tr>
+                    <tr>
+                        <!--image with a class of image-hover-->
+                        <td class="image-container">
+                            <img src="muffin1.jpg" alt="muffins.img" class="image-hover first-image">
+                            <img src="muffin.jpg" alt="muffins.img" class="image-hover second-image">
+                        </td>
+                        <!--ingredients with id for each paragraph-->
+                        <td rowspan="2">
+                            <p id="flourResult">All-Purpose Flour(250g)</p>
+                            <p id="GsugarResult">Granulated Sugar(200g)</p>
+                            <p id="cocoaResult">Cocoa Powder(41g)</p>
+                            <p id="BsodaResult">Baking Soda(1 teaspoons)</p>
+                            <p id="saltResult">Salt(1/2 teaspoons)</p>
+                            <p id="chocoResult">Chocolate Chips(315g)</p>
+                            <p id="eggResult">Use 2 large egg(s)</p>
+                            <p id="yogurtResult">Plain Yogurt(185g)</p>
+                            <p id="VoilResult">Vegetable Oil(120ml)</p>
+                            <p id="milkResult">Whole Milk(120ml)</p>
+                            <p id="VextractResult">Vanilla Extract(1 1/2 teaspoons)</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <!--take user input for quantity-->
+                            For <input type="number" id="qnty" placeholder="12"> muffins
+                            <br>
+                            <button onclick="calculation()">Calculate</button> <!--call the calculation function-->
+                        </td>
+                    </tr>
+                </table>
+                <hr>
+                <h1>INSTRUCTIONS:</h1>
+                <hr>
+                <!--use numbering to list the instructions-->
+                <ol style="text-align: justify;">
+                    <li><p>Preheat oven to 425°F (218°C). Spray a 12-count muffin pan with nonstick spray or use cupcake liners. This recipe yields about 14 muffins, so prepare a second muffin pan in the same manner or bake in batches and reserve leftover batter at room temperature for when the first batch is done.</p></li>
+                    <li><p>Whisk the flour, sugar, cocoa powder, baking soda, salt, and chocolate chips together in a large bowl. Set aside.</p></li>
+                    <li><p>Whisk the eggs, sour cream, oil, milk, and vanilla extract together until combined. Pour wet ingredients into dry ingredients and fold together with a silicone spatula or wooden spoon until completely combined. (Batter is quite thick, so I recommend a spatula or spoon over a whisk.) Avoid overmixing. The batter will be thick and sticky.</p></li>
+                    <li><p>Spoon the batter into liners, filling them all the way to the top. Bake for 5 minutes at 425°F then, keeping the muffins in the oven, reduce the oven temperature to 350°F (177°C). Bake for an additional 15-16 minutes or until a toothpick inserted in the center comes out clean. The total time these muffins take in the oven is about 20-21 minutes, give or take. (For mini muffins, bake 13-14 total minutes at 350°F (177°C) the whole time.)</p></li>
+                    <li><p>Cool muffins for 10 minutes in the pan, then transfer to a wire rack until ready to eat.</p></li>
+                    <li><p>Cover leftover muffins and store at room temperature for 5 days or in the refrigerator for 1 week.</p></li>
+                </ol>
+                <hr>
+                <h1>EXTRA NOTES:</h1>
+                <hr>
+                <!--use numbering to list extra notes-->
+                <ol style="text-align: justify;">
+                    <li><p><b>Freezing Instructions: </b>For longer storage, freeze the muffins for up to 3 months. Thaw overnight in the refrigerator, then heat up in the microwave if desired.</p></li>
+                    <li><p><b>Special Tools: </b>12-count Muffin Pan | Cupcake Liners | Glass Mixing Bowls | Whisk | Wooden Spoon or Silicone Spatula | Cooling Rack</p></li>
+                    <li><p><b>Jumbo Muffins: </b>If you’d like to make about 6 jumbo muffins instead of standard size, follow the recipe through step 3 using a greased jumbo 6-count muffin pan. Spoon batter into the liners, filling all the way to the top. Bake for 5 minutes at 425°F then, keeping the muffins in the oven, reduce the oven temperature to 350°F (177°C). Bake for an additional 25-28 minutes or until a toothpick inserted in the center comes out clean.</p></li>
+                    <li><p><b>Sour Cream: </b>Use full fat sour cream. In a pinch, you can replace it with plain yogurt. (Full fat Greek style or regular yogurt would be best.)</p></li>
+                    <li><p><b>Oil: </b>For best taste and texture, use vegetable oil. In a pinch, you can replace with canola oil or olive oil. The muffins can taste greasy with melted coconut oil, but if you try it, it’s imperative the other ingredients are room temperature so the coconut oil doesn’t solidify as you mix the batter together.</p></li>
+                    <li><p><b>Milk: </b>Whole milk is best. 2%, 1%, or nondairy milk work in a pinch. Do not use nonfat milk. Don’t use buttermilk. (You could use buttermilk if replacing both the sour cream AND milk, but the muffins taste a little spongy that way. Best to use sour cream and whole milk.)</p></li>
+                    <li><p>Recipe excerpted from <b>Sally’s Baking Addiction</b>. This version includes more chocolate chips and the addition of vanilla extract for a little extra flavor. The cookbook version also uses plain yogurt, but you can use sour cream as noted here.</p></li>
+                </ol>
+                <hr>
+                </table>
+            </center>
+        </div>
+    </body>
+</html>
